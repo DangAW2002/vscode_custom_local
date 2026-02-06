@@ -79,6 +79,7 @@ declare module 'vscode' {
 		 * tools will be made available to the model.
 		 */
 		readonly editTools?: string[];
+		readonly agentMode?: boolean;
 	}
 
 	export type LanguageModelResponsePart2 = LanguageModelResponsePart | LanguageModelDataPart | LanguageModelThinkingPart;

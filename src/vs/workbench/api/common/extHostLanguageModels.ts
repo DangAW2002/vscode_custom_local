@@ -232,7 +232,7 @@ export class ExtHostLanguageModels implements ExtHostLanguageModelsShape {
 						vision: m.capabilities.imageInput,
 						editTools: m.capabilities.editTools,
 						toolCalling: !!m.capabilities.toolCalling,
-						agentMode: !!m.capabilities.toolCalling
+						agentMode: m.capabilities.agentMode ?? !!m.capabilities.toolCalling
 					} : undefined,
 				},
 				identifier: this.toModelIdentifier(vendor, options.group, m.id)

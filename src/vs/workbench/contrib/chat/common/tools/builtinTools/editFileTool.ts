@@ -19,8 +19,10 @@ export const ExtensionEditToolId = 'vscode_editFile';
 export const InternalEditToolId = 'vscode_editFile_internal';
 export const EditToolData: IToolData = {
 	id: InternalEditToolId,
-	displayName: '', // not used
-	modelDescription: '', // Not used
+	displayName: 'Edit files in your workspace',
+	modelDescription: 'Edit files in your workspace',
+	toolReferenceName: 'edit',
+	canBeReferencedInPrompt: true,
 	source: ToolDataSource.Internal,
 };
 
