@@ -240,7 +240,12 @@ export async function showToolsPicker(
 		const getKey = (source: ToolDataSource): string => {
 			switch (source.type) {
 				case 'mcp':
+					return ToolDataSource.toKey(source);
 				case 'extension':
+					if (ExtensionIdentifier.equals(source.extensionId, 'GitHub.copilot-chat') || ExtensionIdentifier.equals(source.extensionId, 'local-github.local-copilot-chat')) {
+						return BucketOrdinal.BuiltIn.toString();
+					}
+
 					return ToolDataSource.toKey(source);
 				case 'internal':
 					return BucketOrdinal.BuiltIn.toString();
@@ -330,6 +335,18 @@ export async function showToolsPicker(
 					bucket.iconClass = ThemeIcon.asClassName(Codicon.mcp);
 				}
 				return bucket;
+			} else if (key === BucketOrdinal.BuiltIn.toString()) {
+				return {
+					itemType: 'bucket',
+					ordinal: BucketOrdinal.BuiltIn,
+					id: key,
+					label: localize('defaultBucketLabel', "Built-In"),
+					checked: undefined,
+					children: [],
+					buttons: [],
+					collapsed: false,
+					sortOrder: 1,
+				};
 			} else if (source.type === 'extension') {
 				return {
 					itemType: 'bucket',
@@ -342,18 +359,6 @@ export async function showToolsPicker(
 					collapsed: true,
 					iconClass: ThemeIcon.asClassName(Codicon.extensions),
 					sortOrder: 3,
-				};
-			} else if (source.type === 'internal') {
-				return {
-					itemType: 'bucket',
-					ordinal: BucketOrdinal.BuiltIn,
-					id: key,
-					label: localize('defaultBucketLabel', "Built-In"),
-					checked: undefined,
-					children: [],
-					buttons: [],
-					collapsed: false,
-					sortOrder: 1,
 				};
 			} else {
 				return {
